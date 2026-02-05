@@ -70,27 +70,43 @@ pip install -r requirements.txt
 
 ### 4. Verify GPU Detection (Optional but Recommended)
 
-Before training, verify that your GPU is properly detected:
+Before training, verify that your GPU is properly detected. You have two options:
+
+#### Option A: Using YOLO Checks Command (Recommended)
+
+```bash
+yolo checks
+```
+
+This command will automatically check:
+- ✅ Python version and dependencies
+- ✅ CUDA/GPU availability
+- ✅ PyTorch and ultralytics versions
+- ✅ System configuration
+
+#### Option B: Using Custom GPU Check Script
+
+Alternatively, you can use the custom GPU detection script:
 
 ```bash
 python check_gpu.py
 ```
 
-This script will:
-- ✅ Check if NVIDIA GPU (CUDA) is available
-- ✅ Check if Apple Silicon GPU (MPS) is available
-- ✅ Display GPU details and memory information
-- ✅ Recommend the correct `device` parameter for your hardware
+This script provides detailed information about:
+- ✅ NVIDIA GPU (CUDA) availability
+- ✅ Apple Silicon GPU (MPS) availability  
+- ✅ GPU memory information
+- ✅ Recommended device parameter for your hardware
 
-**Expected Output Examples:**
+**Expected Output for GPU Check:**
 
-If you have an NVIDIA GPU:
+If NVIDIA GPU is detected:
 ```
 ✅ Use device parameter: device=0
    Example: yolo detect train ... device=0
 ```
 
-If you have Apple Silicon (M1/M2/M3):
+If Apple Silicon (M1/M2/M3) is detected:
 ```
 ✅ Use device parameter: device=mps
    Example: yolo detect train ... device=mps
