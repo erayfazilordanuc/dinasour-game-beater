@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../train/images # val: ../valid/images is not necessary for this project
+# test: ../test/images
+
+nc: 6
+names: ['bird', 'cactus', 'cloud', 'dinosaur', 'moon', 'star']
+
+roboflow:
+  workspace: initial-7ywcd
+  project: dinosaur-game-rg4zs
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/initial-7ywcd/dinosaur-game-rg4zs/dataset/1

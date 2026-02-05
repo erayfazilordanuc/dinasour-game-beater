@@ -1,0 +1,8 @@
+```text
+ultralytics
+mss
+opencv-python
+pyautogui
+python-dotenv
+roboflow
+numpy
