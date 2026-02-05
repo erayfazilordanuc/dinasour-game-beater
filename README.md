@@ -106,7 +106,7 @@ If NVIDIA GPU is detected:
    Example: yolo detect train ... device=0
 ```
 
-If Apple Silicon (M1/M2/M3) is detected:
+If Apple Silicon (M Chip) is detected:
 ```
 ✅ Use device parameter: device=mps
    Example: yolo detect train ... device=mps
@@ -138,7 +138,7 @@ Train the YOLOv11 model using the following command:
 \`\`\`bash
 yolo detect train \
   data=dataset/data.yaml \
-  model=yolo11n.pt \
+  model=train.pt \
   epochs=50 \
   imgsz=640 \
   device=mps
@@ -146,7 +146,7 @@ yolo detect train \
 
 **Command Parameters:**
 - `data=dataset/data.yaml` - Dataset configuration file
-- `model=yolo11n.pt` - Model to use (nano version)
+- `model=train.pt` - Pre-trained model weights for training
 - `epochs=50` - Number of training epochs
 - `imgsz=640` - Input image size
 - `device=mps` - Apple Silicon GPU usage (NVIDIA GPU: `0`, CPU: `cpu`)
@@ -160,12 +160,12 @@ yolo detect train \
 
 **M Chip:**
 ```bash
-yolo detect train data=dataset/data.yaml model=yolo11n.pt epochs=50 imgsz=640 device=mps
+yolo detect train data=dataset/data.yaml model=train.pt epochs=50 imgsz=640 device=mps
 ```
 
 **NVIDIA GPU:**
 ```bash
-yolo detect train data=dataset/data.yaml model=yolo11n.pt epochs=50 imgsz=640 device=0
+yolo detect train data=dataset/data.yaml model=train.pt epochs=50 imgsz=640 device=0
 ```
 
 After training completes, the model is saved in `runs/detect/train/weights/best.pt`.
