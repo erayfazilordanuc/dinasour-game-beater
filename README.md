@@ -68,6 +68,40 @@ pip install -r requirements.txt
 - `numpy` - Numerical operations
 - `python-dotenv` - Environment variables
 
+### 4. Verify GPU Detection (Optional but Recommended)
+
+Before training, verify that your GPU is properly detected:
+
+```bash
+python check_gpu.py
+```
+
+This script will:
+- ✅ Check if NVIDIA GPU (CUDA) is available
+- ✅ Check if Apple Silicon GPU (MPS) is available
+- ✅ Display GPU details and memory information
+- ✅ Recommend the correct `device` parameter for your hardware
+
+**Expected Output Examples:**
+
+If you have an NVIDIA GPU:
+```
+✅ Use device parameter: device=0
+   Example: yolo detect train ... device=0
+```
+
+If you have Apple Silicon (M1/M2/M3):
+```
+✅ Use device parameter: device=mps
+   Example: yolo detect train ... device=mps
+```
+
+If no GPU is detected:
+```
+ℹ️  No GPU detected, falling back to CPU
+   Use device parameter: device=cpu
+```
+
 ---
 
 ## 🎓 Training the Model
