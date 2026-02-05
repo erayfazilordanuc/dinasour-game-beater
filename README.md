@@ -6,7 +6,7 @@ An autonomous bot that plays the Chrome Dinosaur Game using real-time object det
 
 ## 🚀 Features
 - **Real-time Object Detection:** Detects Cacti, Birds, and the Dino using YOLOv11 Nano.
-- **High Performance:** Uses `mss` for screen capture (>60 FPS on RTX 4060).
+- **High Performance:** Uses `mss` for screen capture (>60 FPS on Apple Silicon).
 - **Smart Logic:** Calculates distance between Dino and obstacles to trigger jumps or ducks.
 - **Local Training:** Custom dataset trained on Roboflow and exported for local GPU inference.
 
@@ -20,173 +20,185 @@ An autonomous bot that plays the Chrome Dinosaur Game using real-time object det
 
 ---
 
-## 📋 Ön Koşullar
+## 📋 Prerequisites
 
-- Python 3.9 veya daha yüksek
-- pip (Python paket yöneticisi)
-- macOS, Linux veya Windows
-- GPU (opsiyonel, CPU ile de çalışır)
+- Python 3.9 or higher
+- pip (Python package manager)
+- macOS, Linux, or Windows
+- GPU (optional, CPU works as well)
 
 ---
 
-## ⚙️ Kurulum
+## ⚙️ Installation
 
-### 1. Projeyi Klonlayın
+### 1. Clone the Repository
 
-```bash
+\`\`\`bash
 git clone <repository-url>
 cd dinasour\ game\ beater
-```
+\`\`\`
 
-### 2. Sanal Ortam Oluşturun (İsteğe Bağlı Ama Önerilir)
+### 2. Create a Virtual Environment (Optional but Recommended)
 
-```bash
-# Python sanal ortam oluştur
+\`\`\`bash
+# Create Python virtual environment
 python3 -m venv venv
 
-# Sanal ortamı etkinleştir
+# Activate virtual environment
 # macOS/Linux:
 source venv/bin/activate
 
 # Windows:
 venv\Scripts\activate
-```
+\`\`\`
 
-### 3. Kütüphaneleri Kurun
+### 3. Install Dependencies
 
-```bash
+\`\`\`bash
 pip install --upgrade pip
 pip install -r requirements.txt
-```
+\`\`\`
 
-**Gerekli Kütüphaneler:**
-- `ultralytics` - YOLOv11 modeli
-- `mss` - Ekran görüntüsü alma
-- `opencv-python` - Görüntü işleme
-- `pyautogui` - Klavye kontrolü
-- `roboflow` - Dataset yönetimi
-- `numpy` - Sayısal işlemler
-- `python-dotenv` - Ortam değişkenleri
+**Required Libraries:**
+- `ultralytics` - YOLOv11 model
+- `mss` - Screen capture
+- `opencv-python` - Image processing
+- `pyautogui` - Keyboard control
+- `roboflow` - Dataset management
+- `numpy` - Numerical operations
+- `python-dotenv` - Environment variables
 
 ---
 
-## 🎓 Modeli Eğitme
+## 🎓 Training the Model
 
-### Dataset Hazırlığı
+### Dataset Preparation
 
-Dataset zaten `dataset/` klasöründe bulunmaktadır ve Roboflow üzerinde yönetilmektedir.
+The dataset is already located in the `dataset/` folder and managed via Roboflow.
 
-```bash
-# (Opsiyonel) Dataset'i Roboflow'dan indirmek için
+\`\`\`bash
+# (Optional) Download dataset from Roboflow
 python get_dataset.py
-```
+\`\`\`
 
-### Eğitim Komutu
+### Training Command
 
-Aşağıdaki komut ile YOLOv11 modelini eğitebilirsiniz:
+Train the YOLOv11 model using the following command:
 
-```bash
+\`\`\`bash
 yolo detect train \
   data=dataset/data.yaml \
   model=yolo11n.pt \
   epochs=50 \
   imgsz=640 \
   device=mps
-```
+\`\`\`
 
-**Komut Parametreleri:**
-- `data=dataset/data.yaml` - Dataset konfigürasyon dosyası
-- `model=yolo11n.pt` - Kullanılan model (nano sürümü)
-- `epochs=50` - Eğitim dönem sayısı
-- `imgsz=640` - Giriş görüntü boyutu
-- `device=mps` - Apple Silicon GPU kullanımı (Intel GPU: `0`, CPU: `cpu`)
+**Command Parameters:**
+- `data=dataset/data.yaml` - Dataset configuration file
+- `model=yolo11n.pt` - Model to use (nano version)
+- `epochs=50` - Number of training epochs
+- `imgsz=640` - Input image size
+- `device=mps` - Apple Silicon GPU usage (NVIDIA GPU: `0`, CPU: `cpu`)
 
-**Cihazınız için device parametresi:**
+**Device Parameter for Your Hardware:**
 - Apple Silicon (M1/M2/M3): `device=mps`
-- NVIDIA GPU: `device=0` (veya GPU index numarası)
+- NVIDIA GPU: `device=0` (or GPU index number)
 - CPU: `device=cpu`
 
-Eğitim tamamlandığında model `runs/detect/train/weights/best.pt` klasöründe kaydedilir.
+### Device-Specific Training Commands
+
+**M Chip:**
+```bash
+yolo detect train data=dataset/data.yaml model=yolo11n.pt epochs=50 imgsz=640 device=mps
+```
+
+**NVIDIA GPU:**
+```bash
+yolo detect train data=dataset/data.yaml model=yolo11n.pt epochs=50 imgsz=640 device=0
+```
+
+After training completes, the model is saved in `runs/detect/train/weights/best.pt`.
 
 ---
 
-## 🎮 Uygulamayı Başlatın
+## 🎮 Running the Application
 
-### Main Script'i Çalıştırın
+### Execute the Main Script
 
-```bash
+\`\`\`bash
 python main.py
-```
+\`\`\`
 
-**Kullanım:**
-1. Chrome veya Brave tarayıcısında Dino oyununu açın
-2. Script'i başlatın
-3. Bot otomatik olarak oyunu oynayacaktır
+**Usage:**
+1. Open the Dino game in Chrome or Brave browser
+2. Run the script
+3. The bot will automatically play the game
 
-### Screen Processing (Ayarlamalar İçin)
+### Screen Processing (For Adjustments)
 
-Ekran işleme parametrelerini test etmek için:
+To test screen processing parameters:
 
-```bash
+\`\`\`bash
 python screen_processing.py
-```
+\`\`\`
 
 ---
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
-```
+\`\`\`
 dinasour game beater/
-├── README.md                 # Bu dosya
-├── requirements.txt          # Python bağımlılıkları
-├── main.py                   # Ana oyun bot scripti
-├── screen_processing.py      # Ekran görüntüsü işleme
-├── get_dataset.py           # Roboflow dataset indirme
-├── training_command.txt      # Eğitim komutları referansı
-├── .env                      # Ortam değişkenleri (git ignore)
-├── .env.example              # Örnek ortam değişkenleri
-└── dataset/                  # Dataset dosyaları
-    ├── data.yaml             # Dataset konfigürasyonu
-    ├── train/                # Eğitim görüntüleri
-    └── val/                  # Doğrulama görüntüleri
-```
+├── README.md                 # This file
+├── requirements.txt          # Python dependencies
+├── main.py                   # Main game bot script
+├── screen_processing.py      # Screen capture processing
+├── get_dataset.py           # Roboflow dataset downloader
+├── training_command.txt      # Training commands reference
+├── .env                      # Environment variables (git ignore)
+├── .env.example              # Example environment variables
+└── dataset/                  # Dataset files
+    ├── data.yaml             # Dataset configuration
+    ├── train/                # Training images
+    └── val/                  # Validation images
+\`\`\`
 
 ---
 
-## 🔧 Sorun Giderme
+## 🔧 Troubleshooting
 
 ### `ModuleNotFoundError: No module named 'ultralytics'`
-```bash
+\`\`\`bash
 pip install ultralytics
-```
+\`\`\`
 
 ### `ModuleNotFoundError: No module named 'mss'`
-```bash
+\`\`\`bash
 pip install mss
-```
+\`\`\`
 
-### GPU Tanıması Sorunu
-```bash
-# Doğru device parametresini belirleyin
-yolo detect train ... device=cpu  # CPU'da eğitin
-```
+### GPU Recognition Issues
+\`\`\`bash
+# Specify the correct device parameter
+yolo detect train ... device=cpu  # Train on CPU
+\`\`\`
 
-### Bot Oyunu Oynamıyor
-- Chrome DevTools açılı mı kontrol edin
-- Oyun penceresinin en üstte olduğundan emin olun
-- `screen_processing.py` ile ekran görüntülemesini test edin
-
----
-
-## 📝 Lisans
-
-Bu proje açık kaynaklıdır. Detaylar için LICENSE dosyasına bakınız.
+### Bot Not Playing the Game
+- Check if Chrome DevTools is open
+- Ensure the game window is in focus
+- Test screen capture with `screen_processing.py`
 
 ---
 
-## 💡 İpuçları
+## 📝 License
 
-- Sanal ortam kullanmak bağımlılık çakışmalarını önler
-- GPU ile eğitim, CPU ile eğitimden **50-100x daha hızlıdır**
-- Dataset'i düzenli olarak güncelleyin
-- Oyun parametreleri değişirse `screen_processing.py`'de ayarlamalar yapın
+This project is open source. See the LICENSE file for details.
+
+---
+
+## 💡 Tips
+
+- Using a virtual environment prevents dependency conflicts
+- GPU training is **50-100x faster** than CPU training
+- Update your dataset regularly
+- Adjust parameters in `screen_processing.py` if the game mechanics change
