@@ -1,7 +1,30 @@
-ultralytics
-mss
-opencv-python
-pyautogui
-python-dotenv
-roboflow
-numpy
+# Core Dependencies
+numpy>=1.24.0
+opencv-python>=4.8.0
+pillow>=10.0.0
+
+# Object Detection & Machine Learning
+ultralytics>=8.0.0
+
+# PyTorch must be installed separately with GPU support (NOT via pip install -r requirements.txt)
+# ⚠️ IMPORTANT: Install torch manually using one of these commands:
+# For NVIDIA GPU: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# For CPU: pip install torch torchvision torchaudio
+# For Apple Silicon: pip install torch torchvision torchaudio
+# torch>=2.0.0  # Uncomment and use with GPU installation above
+# torchvision>=0.15.0  # Uncomment and use with GPU installation above
+# torchaudio>=2.0.0  # Uncomment and use with GPU installation above
+
+# Screen Capture & Automation
+mss>=9.0.0
+pyautogui>=0.9.53
+
+# Configuration & Dataset Management
+python-dotenv>=1.0.0
+roboflow>=1.0.0
+pyyaml>=6.0
+requests>=2.31.0
+
+# Additional dependencies for YOLO
+scipy>=1.11.0
+matplotlib>=3.7.0

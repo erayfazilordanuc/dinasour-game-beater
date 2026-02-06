@@ -38,21 +38,9 @@ git clone <repository-url>
 cd dinasour\ game\ beater
 \`\`\`
 
-### 2. Create a Virtual Environment (Optional but Recommended)
-
-\`\`\`bash
-# Create Python virtual environment
-python3 -m venv venv
-
-# Activate virtual environment
-# macOS/Linux:
-source venv/bin/activate
-
-# Windows:
-venv\Scripts\activate
-\`\`\`
-
 ### 3. Install Dependencies
+
+First, install the general requirements:
 
 \`\`\`bash
 pip install --upgrade pip
@@ -68,7 +56,35 @@ pip install -r requirements.txt
 - `numpy` - Numerical operations
 - `python-dotenv` - Environment variables
 
-### 4. Verify GPU Detection (Optional but Recommended)
+### 4. GPU Setup (Critical for NVIDIA Users) ⚡
+
+⚠️ **IMPORTANT:** By default, pip might install the CPU-only version of PyTorch. If you have an NVIDIA GPU (RTX 30xx, 40xx, etc.), you **MUST** install the CUDA-supported version manually.
+
+#### For NVIDIA GPU Users:
+
+Uninstall the default CPU version:
+
+\`\`\`bash
+pip uninstall torch torchvision torchaudio -y
+\`\`\`
+
+Install the CUDA 12.1 version (Recommended):
+
+\`\`\`bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+\`\`\`
+
+**Alternative CUDA versions:**
+- CUDA 11.8: `https://download.pytorch.org/whl/cu118`
+- CPU only: Standard `pip install -r requirements.txt` is sufficient
+
+#### For Apple Silicon (M1/M2/M3) & CPU Users:
+
+Standard installation is usually sufficient. No extra steps needed.
+
+---
+
+### 5. Verify GPU Detection (Optional but Recommended)
 
 Before training, verify that your GPU is properly detected. You have two options:
 
@@ -217,9 +233,33 @@ dinasour game beater/
 
 ## 🔧 Troubleshooting
 
+### GPU Detected as "None" or Running on CPU
+
+If you have an NVIDIA GPU but `yolo checks` or `check_gpu.py` says `CUDA Available: False`:
+
+**Step 1:** Check your PyTorch version
+\`\`\`bash
+python -c "import torch; print(torch.__version__)"
+\`\`\`
+
+If you see `+cpu` at the end (e.g., `2.10.0+cpu`), you have the wrong version.
+
+**Step 2:** Reinstall PyTorch with CUDA support
+\`\`\`bash
+pip uninstall torch torchvision torchaudio -y
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+\`\`\`
+
+**Step 3:** Verify the installation
+\`\`\`bash
+python check_gpu.py
+# or
+yolo checks
+\`\`\`
+
 ### `ModuleNotFoundError: No module named 'ultralytics'`
 \`\`\`bash
-pip install ultralytics
+pip install --upgrade ultralytics
 \`\`\`
 
 ### `ModuleNotFoundError: No module named 'mss'`
@@ -227,16 +267,18 @@ pip install ultralytics
 pip install mss
 \`\`\`
 
-### GPU Recognition Issues
+### Other Module Not Found Errors
+
+Reinstall all dependencies:
 \`\`\`bash
-# Specify the correct device parameter
-yolo detect train ... device=cpu  # Train on CPU
+pip install --upgrade -r requirements.txt
 \`\`\`
 
 ### Bot Not Playing the Game
-- Check if Chrome DevTools is open
-- Ensure the game window is in focus
-- Test screen capture with `screen_processing.py`
+- Check if Chrome DevTools is open (close it if it is)
+- Ensure the game window is in focus and visible
+- Test screen capture with `python screen_processing.py`
+- Verify the model weights file exists at `runs/detect/train/weights/best.pt`
 
 ---
 
