@@ -4,11 +4,11 @@ An autonomous bot that plays the Chrome Dinosaur Game using real-time object det
 
 ![Status](https://img.shields.io/badge/Status-Active-success) ![Python](https://img.shields.io/badge/Python-3.9%2B-blue) ![YOLO](https://img.shields.io/badge/Model-YOLOv11n-orange)
 
-## � Demo
+## Demo
 
 ![AI Bot Playing Chrome Dinosaur Game](demonstration.png)
 
-## �🚀 Features
+## 🚀 Features
 - **Real-time Object Detection:** Detects Cacti, Birds, and the Dino using YOLOv11 Nano.
 - **High Performance:** Uses `mss` for screen capture (>60 FPS on Apple Silicon).
 - **Smart Logic:** Calculates distance between Dino and obstacles to trigger jumps or ducks.
